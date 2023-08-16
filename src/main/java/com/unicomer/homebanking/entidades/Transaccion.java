@@ -44,10 +44,6 @@ public class Transaccion {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public TipoTransaccion getTipo() {
         return tipo;
     }

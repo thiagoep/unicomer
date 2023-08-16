@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CuentaBancariaRepositorio extends JpaRepository<CuentaBancaria, String> {
     
-    @Query("SELECT c FROM CuentaBancaria c WHERE c.id = :id")
-    public CuentaBancaria buscarPorId(@Param("titulo") String id);
-    
     @Query("SELECT c FROM CuentaBancaria c WHERE c.usuario.nombre = :nombre")
     public List<CuentaBancaria> buscarPorUsuario(@Param("nombre") String nombre);
 }

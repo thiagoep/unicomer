@@ -4,10 +4,13 @@ import com.unicomer.homebanking.entidades.CuentaBancaria;
 import com.unicomer.homebanking.entidades.TarjetaCredito;
 import com.unicomer.homebanking.repositorios.CuentaBancariaRepositorio;
 import com.unicomer.homebanking.repositorios.TarjetaCreditoRepositorio;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TarjetaCreditoServicio {
@@ -18,6 +21,7 @@ public class TarjetaCreditoServicio {
     @Autowired
     private CuentaBancariaRepositorio cuentaBancariaRepositorio;
     
+    @Transactional
     public void solicitarTarjetaCredito(String idCuentaBancaria) {
         
         CuentaBancaria cuentaBancaria = cuentaBancariaRepositorio.findById(idCuentaBancaria).get();
@@ -32,7 +36,15 @@ public class TarjetaCreditoServicio {
         
         tarjetaCredito.setFechaVencimiento(fechaActual.getTime());
         
+        tarjetaCreditoRepositorio.save(tarjetaCredito);
+    }
+    
+    public List<TarjetaCredito> listarTarjetas() {
+        List<TarjetaCredito> tarjetas = new ArrayList();
         
+        tarjetas = tarjetaCreditoRepositorio.findAll();
+        
+        return tarjetas;
     }
     
     public String crearNumeroTarjeta(int cantNumeros) {
